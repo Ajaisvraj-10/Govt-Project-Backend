@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('farmersdt.urls')),
     path('', include('users.urls')),
+    path('', include('locations.urls')),
     path('api/Farmersprjct',include ('rest_framework.urls')),
 ]

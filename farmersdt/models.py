@@ -55,4 +55,5 @@ class Farmers(models.Model):
     fpo = models.ForeignKey(FPO,on_delete=models.CASCADE,related_name='farmers_fpo')
     ics = models.ForeignKey(ICS,on_delete=models.CASCADE,related_name='farmers_ics')
     vfc = models.ForeignKey(VFC,on_delete=models.CASCADE,related_name='farmers_vfc')
+    farmer_code = models.IntegerField(null=True)
     
