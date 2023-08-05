@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Countrty,State,District,Panchayats,RevenueVillage,LocalVillage
+from .models import Countrty,State,District,Panchayats,RevenueVillage,LocalVillage,PostOffice
 
 
 class CountrySerializers(serializers.ModelSerializer):
@@ -37,6 +37,11 @@ class LocalVillageSerializers(serializers.ModelSerializer):
         model = LocalVillage
         fields = '__all__'
 
+
+class PostOfficeSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = PostOffice
+        fields = '__all__'
 
         
             

@@ -22,33 +22,29 @@ class ICSSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
         
-
+        
+        
 class VFCLocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = VFC
-        fields = ['country', 'state', 'district', 'panchayats', 'revenue_village', 'local_village']
+        fields = ['local_village']
         
         
 
 class VFCSerializer(serializers.ModelSerializer):
-    ics = ICSSerializer(many=True)
-    aeo = AEOSerializer()
-
     class Meta:
         model = VFC
         fields = '__all__'
-        
+
         
 
 class FarmersLocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Farmers
-        fields = ['country', 'state', 'district', 'panchayats']
+        fields = ['panchayats']
+
 
 class FarmersSerializer(serializers.ModelSerializer):
-    vfc = VFCLocationSerializer()
-    ics = ICSSerializer()
-
     class Meta:
         model = Farmers
         fields = '__all__'

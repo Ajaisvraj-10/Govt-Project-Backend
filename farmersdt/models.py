@@ -32,13 +32,8 @@ class ICS(models.Model):
 class VFC(models.Model):
     name = models.CharField(max_length=100)
     fpo = models.ForeignKey(FPO,on_delete=models.CASCADE,related_name='vfc_fpo')
-    country = models.CharField(max_length=255)
-    state = models.CharField(max_length=255)
-    district = models.CharField(max_length=255)
-    panchayats = models.CharField(max_length=255)
-    revenue_village = models.CharField(max_length=255)
-    local_village = models.CharField(max_length=255)    
-    ics = models.ManyToManyField(ICS,related_name='vfc_ics')
+    local_village = models.ForeignKey('locations.LocalVillage',on_delete=models.CASCADE,related_name='vfc_local_village',default=1)
+    ics = models.ManyToManyField(ICS,blank=True,related_name='vfc_ics')
     aeo = models.ForeignKey(AEO,on_delete=models.CASCADE,related_name='vfc_aeo')
     
     def __str__(self):
@@ -48,10 +43,7 @@ class VFC(models.Model):
 class Farmers(models.Model):
     name = models.CharField(max_length=100)
     address = models.TextField()
-    country = models.CharField(max_length=255)
-    state = models.CharField(max_length=255)
-    district = models.CharField(max_length=255)
-    panchayats = models.CharField(max_length=255)
+    panchayats = models.ForeignKey('locations.Panchayats',on_delete=models.CASCADE,related_name='farmers_panchayats')
     fpo = models.ForeignKey(FPO,on_delete=models.CASCADE,related_name='farmers_fpo')
     ics = models.ForeignKey(ICS,on_delete=models.CASCADE,related_name='farmers_ics')
     vfc = models.ForeignKey(VFC,on_delete=models.CASCADE,related_name='farmers_vfc')
