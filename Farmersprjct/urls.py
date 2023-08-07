@@ -22,5 +22,6 @@ urlpatterns = [
     path('', include('farmersdt.urls')),
     path('', include('users.urls')),
     path('', include('locations.urls')),
+    path('', include('crop.urls')),
     path('api/Farmersprjct',include ('rest_framework.urls')),
 ]
