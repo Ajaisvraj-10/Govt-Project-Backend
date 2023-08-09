@@ -17,7 +17,7 @@ class ProductType(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
-    price = models.IntegerField()
+    price = models.FloatField()
     category = models.ForeignKey(Category,on_delete=models.CASCADE,related_name='product_category')
     product_type = models.ForeignKey(ProductType,on_delete=models.CASCADE,related_name='product_producttype')
     

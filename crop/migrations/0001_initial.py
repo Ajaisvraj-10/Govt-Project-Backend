@@ -13,46 +13,55 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='AEO',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('email', models.EmailField(max_length=254)),
-                ('phone', models.CharField(max_length=15)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Farmers',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('address', models.TextField()),
-                ('farmer_code', models.IntegerField(null=True)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='FPO',
+            name='Category',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
-            name='ICS',
+            name='CropsinFarmer',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('register_date', models.DateField()),
             ],
         ),
         migrations.CreateModel(
-            name='VFC',
+            name='Product',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
-                ('aeo', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='vfc_aeo', to='farmersdt.aeo')),
-                ('fpo', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='vfc_fpo', to='farmersdt.fpo')),
-                ('ics', models.ManyToManyField(blank=True, related_name='vfc_ics', to='farmersdt.ics')),
+                ('price', models.IntegerField()),
+                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='product_category', to='crop.category')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='ProductType',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=100)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='ProductStock',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('quantity', models.FloatField()),
+                ('crops_in_farmer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='productstock_cropsinfarmer', to='crop.cropsinfarmer')),
+                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='productstock_product', to='crop.product')),
+            ],
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='product_type',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='product_producttype', to='crop.producttype'),
+        ),
+        migrations.CreateModel(
+            name='Plant',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=100)),
+                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='plant_category', to='crop.category')),
+                ('products', models.ManyToManyField(blank=True, related_name='plant_products', to='crop.product')),
             ],
         ),
     ]
